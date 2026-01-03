@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dendy Games</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #000;
+    }
+
+    .topbar {
+      background: #fff;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    button {
+      padding: 8px 14px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      color: #000;
+      font-size: 14px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .game-list {
+      display: none;
+      background: #fff;
+      padding: 10px;
+      position: absolute;
+      top: 50px;
+      left: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .game-list div {
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      color: #000;
+    }
+
+    .game-list div:hover {
+      background: #f0f0f0;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      width: auto;
+      height: auto;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+    }
+
+    iframe {
+      width: 960px;
+      height: 720px;
+      max-width: 90vw;
+      max-height: 90vh;
+      border: none;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <button id="toggleGames">Выбор игры</button>
+</div>
+
+<div class="game-list" id="gameList">
+  <div onclick="openGame('https://st.8games.net/11/igra-dendi-chip-i-dejl-speshat-na-pomoshch-2/')">Chip & Dale 2</div>
+  <div onclick="openGame('https://st.8games.net/11/igra-dendi-chip-i-dejl/')">Chip & Dale</div>
+  <div onclick="openGame('https://st.8games.net/11/igra-dendi-boevye-zhaby-i-dvojnoj-drakon/')">Боевые жабы и Double Dragon</div>
+  <div onclick="openGame('https://st.8games.net/11/igra-dendi-cherepashki-nindzya-turnir-bojtsov/')">Черепашки-ниндзя: Турнир бойцов</div>
+  <div onclick="openGame('https://st.8games.net/11/igra-dendi-kontra/')">Contra</div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <button class="close" onclick="closeModal()">✕</button>
+    <iframe id="gameFrame"></iframe>
+  </div>
+</div>
+
+<script>
+  const toggleBtn = document.getElementById('toggleGames');
+  const gameList = document.getElementById('gameList');
+  const modal = document.getElementById('modal');
+  const frame = document.getElementById('gameFrame');
+
+  toggleBtn.onclick = () => {
+    gameList.style.display = gameList.style.display === 'block' ? 'none' : 'block';
+  };
+
+  function openGame(url) {
+    frame.src = url;
+    modal.style.display = 'flex';
+    gameList.style.display = 'none';
+  }
+
+  function closeModal() {
+    frame.src = '';
+    modal.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
