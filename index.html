@@ -13,12 +13,22 @@
   h1 {
     text-align: center;
   }
+
+  /* Контейнер для выбора игры и кнопки помощи */
+  .game-select-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Расстояние между select и кнопкой */
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
   select, button {
-    display: block;
-    margin: 20px auto;
     padding: 10px;
     font-size: 16px;
   }
+
   iframe {
     display: block;
     margin: 0 auto;
@@ -65,20 +75,22 @@
 
 <h1>Выберите игру</h1>
 
-<select id="gameSelect">
-  <option value="">-- Выберите игру --</option>
-  <option value="https://st.8games.net/11/igra-dendi-chip-i-dejl-speshat-na-pomoshch-2/">Chip & Dale 2</option>
-  <option value="https://st.8games.net/11/igra-dendi-chip-i-dejl/">Chip & Dale</option>
-  <option value="https://st.8games.net/11/igra-dendi-boevye-zhaby-i-dvojnoj-drakon/">Battletoads & Double Dragon</option>
-  <option value="https://st.8games.net/11/igra-dendi-kontra/">Contra</option>
-  <option value="https://igroutka.ru/loader/game/37804/">Battletoads</option>
-  <option value="https://igroutka.ru/loader/game/37806/">Streets Of Rage</option>
-  <option value="https://igroutka.ru/loader/game/37447/">Streets Of Rage 2</option>
-</select>
+<div class="game-select-container">
+  <select id="gameSelect">
+    <option value="">-- Выберите игру --</option>
+    <option value="https://st.8games.net/11/igra-dendi-chip-i-dejl-speshat-na-pomoshch-2/">Chip & Dale 2</option>
+    <option value="https://st.8games.net/11/igra-dendi-chip-i-dejl/">Chip & Dale</option>
+    <option value="https://st.8games.net/11/igra-dendi-boevye-zhaby-i-dvojnoj-drakon/">Battletoads & Double Dragon</option>
+    <option value="https://st.8games.net/11/igra-dendi-kontra/">Contra</option>
+    <option value="https://igroutka.ru/loader/game/37804/">Battletoads</option>
+    <option value="https://igroutka.ru/loader/game/37806/">Streets Of Rage</option>
+    <option value="https://igroutka.ru/loader/game/37447/">Streets Of Rage 2</option>
+  </select>
+
+  <button id="showInstruction">Помощь</button>
+</div>
 
 <iframe id="gameFrame" src="" allowfullscreen></iframe>
-
-<button id="showInstruction">Показать инструкцию по эмулятору</button>
 
 <!-- Модальное окно -->
 <div id="instructionModal" class="modal">
@@ -96,7 +108,7 @@
       <li>🎮 <b>Controller / Gamepad</b> — настройка клавиатуры или джойстика.</li>
       <li>⚙️ <b>Settings / Options</b> — видео, звук, скорость эмуляции.</li>
       <li>🔊 <b>Sound / Mute</b> — включение/выключение звука.</li>
-      <li>🔲 <b>Full Screen / Полноэкранный режим</b> — развернуть игру на весь экран.</li>
+      <li>🔲 <b>Full Screen / Полноэкранный режим</b> — развернуть игру на весь экран </b>).</li>
     </ul>
 
     <h3>Настройка клавиатуры:</h3>
