@@ -1,162 +1,157 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dendy Games</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      color: #000;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Выбор игры и инструкция</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f0f0f0;
+  }
+  h1 {
+    text-align: center;
+  }
+  select, button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 16px;
+  }
+  iframe {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+    height: 550px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background: #000;
+  }
 
-    .topbar {
-      background: #fff;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid #ddd;
-      position: relative;
-      z-index: 100;
-    }
-
-    button {
-      padding: 8px 14px;
-      cursor: pointer;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #fff;
-      color: #000;
-      font-size: 14px;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-
-    .game-list {
-      display: none;
-      background: #fff;
-      padding: 10px;
-      position: absolute;
-      top: 50px;
-      left: 10px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-
-    .game-list div {
-      padding: 8px;
-      cursor: pointer;
-      border-radius: 4px;
-      color: #000;
-    }
-
-    .game-list div:hover {
-      background: #f0f0f0;
-    }
-
-    /* Полноэкранное модальное окно */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    .modal-content {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000;
-    }
-
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: red;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 10;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: #000;
-    }
-  </style>
+  /* Модальное окно */
+  .modal {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+  }
+  .modal-content {
+    background-color: #fff;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    max-width: 800px;
+    position: relative;
+  }
+  .close {
+    position: absolute;
+    right: 15px; top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .close:hover { color: red; }
+  #instruction h2 { text-align: center; }
+  #instruction ul { line-height: 1.6; }
+</style>
 </head>
 <body>
 
-<div class="topbar">
-  <button id="toggleGames">Выбор игры</button>
-</div>
+<h1>Выберите игру</h1>
 
-<div class="game-list" id="gameList">
-  <div onclick="openGame('https://st.8games.net/11/igra-dendi-chip-i-dejl-speshat-na-pomoshch-2/')">Chip & Dale 2</div>
-  <div onclick="openGame('https://st.8games.net/11/igra-dendi-chip-i-dejl/')">Chip & Dale</div>
-  <div onclick="openGame('https://st.8games.net/11/igra-dendi-boevye-zhaby-i-dvojnoj-drakon/')">Battletoads & Double Dragon</div>
-  <div onclick="openGame('https://st.8games.net/11/igra-dendi-kontra/')">Contra</div>
-  <div onclick="openGame('https://igroutka.ru/loader/game/37804/')">Battletoads</div>  
-  <div onclick="openGame('https://igroutka.ru/loader/game/37806/')">Streets Of Rage</div>
-  <div onclick="openGame('https://igroutka.ru/loader/game/37447/')">Streets of Rage 2</div>
-</div>
+<select id="gameSelect">
+  <option value="">-- Выберите игру --</option>
+  <option value="https://st.8games.net/11/igra-dendi-chip-i-dejl-speshat-na-pomoshch-2/">Chip & Dale 2</option>
+  <option value="https://st.8games.net/11/igra-dendi-chip-i-dejl/">Chip & Dale</option>
+  <option value="https://st.8games.net/11/igra-dendi-boevye-zhaby-i-dvojnoj-drakon/">Battletoads & Double Dragon</option>
+  <option value="https://st.8games.net/11/igra-dendi-kontra/">Contra</option>
+  <option value="https://igroutka.ru/loader/game/37804/">Battletoads</option>
+  <option value="https://igroutka.ru/loader/game/37806/">Streets Of Rage</option>
+  <option value="https://igroutka.ru/loader/game/37447/">Streets Of Rage 2</option>
+</select>
 
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <button class="close" onclick="closeModal()">✕</button>
-    <iframe id="gameFrame"></iframe>
+<iframe id="gameFrame" src="" allowfullscreen></iframe>
+
+<button id="showInstruction">Показать инструкцию по эмулятору</button>
+
+<!-- Модальное окно -->
+<div id="instructionModal" class="modal">
+  <div class="modal-content" id="instruction">
+    <span class="close">&times;</span>
+    <h2>Инструкция по эмулятору JS</h2>
+
+    <h3>Основные элементы интерфейса:</h3>
+    <ul>
+      <li>▶️ <b>Play / Start</b> — запустить или продолжить игру.</li>
+      <li>⏸️ <b>Pause</b> — поставить игру на паузу.</li>
+      <li>⏹️ <b>Stop / Reset</b> — перезагрузить игру, сброс прогресса.</li>
+      <li>💾 <b>Save State</b> — сохранить текущее состояние игры.</li>
+      <li>📂 <b>Load State</b> — загрузить сохранённое состояние.</li>
+      <li>🎮 <b>Controller / Gamepad</b> — настройка клавиатуры или джойстика.</li>
+      <li>⚙️ <b>Settings / Options</b> — видео, звук, скорость эмуляции.</li>
+      <li>🔊 <b>Sound / Mute</b> — включение/выключение звука.</li>
+      <li>🔲 <b>Full Screen / Полноэкранный режим</b> — развернуть игру на весь экран.</li>
+    </ul>
+
+    <h3>Настройка клавиатуры:</h3>
+    <ul>
+      <li>Up, Down, Left, Right — движение.</li>
+      <li>A — основная кнопка (прыжок / удар).</li>
+      <li>B — вторичная кнопка (атака / бросок).</li>
+      <li>Start — пауза / старт.</li>
+      <li>Select — выбор меню.</li>
+      <li>Щёлкните по кнопке в настройках и нажмите нужную клавишу.</li>
+    </ul>
+
+    <h3>Настройка джойстика:</h3>
+    <ul>
+      <li>Подключите USB/BT джойстик.</li>
+      <li>Выберите Gamepad вместо клавиатуры.</li>
+      <li>Назначьте кнопки джойстика на NES-кнопки.</li>
+      <li>Сохраните настройки и играйте удобно как на приставке.</li>
+    </ul>
   </div>
 </div>
 
 <!-- VK Bridge -->
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 <script>
-  // Инициализация VK Bridge (можно оставить, если в будущем потребуется)
   vkBridge.send('VKWebAppInit');
 
-  const toggleBtn = document.getElementById('toggleGames');
-  const gameList = document.getElementById('gameList');
-  const modal = document.getElementById('modal');
-  const frame = document.getElementById('gameFrame');
+  const select = document.getElementById('gameSelect');
+  const iframe = document.getElementById('gameFrame');
 
-  toggleBtn.onclick = () => {
-    gameList.style.display = gameList.style.display === 'block' ? 'none' : 'block';
-  };
+  const modal = document.getElementById('instructionModal');
+  const btn = document.getElementById('showInstruction');
+  const span = document.querySelector('.close');
 
-  function openGame(url) {
-    frame.src = url;
-    modal.style.display = 'flex';
-    gameList.style.display = 'none';
-  }
+  // Выбор игры
+  select.addEventListener('change', () => {
+    const url = select.value;
+    iframe.src = url ? url : '';
+  });
 
-  function closeModal() {
-    frame.src = '';
+  // Открыть модальное окно
+  btn.addEventListener('click', () => {
+    modal.style.display = 'block';
+  });
+
+  // Закрыть окно по крестику
+  span.addEventListener('click', () => {
     modal.style.display = 'none';
-  }
+  });
 
-  // Закрытие модального окна при клике вне iframe
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
+  // Закрыть окно по клику вне контента
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
   });
 </script>
 
